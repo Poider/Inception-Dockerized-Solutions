@@ -54,13 +54,13 @@ volumes:
   wp:
     driver: local
     driver_opts:
-      device: /home/mel-amma/data/wp/wp
+      device: /home/mel-amma/data/wp
       o: bind
       type: none
   db:
     driver: local
     driver_opts:
-      device: /home/mel-amma/data/wp/db
+      device: /home/mel-amma/data/db
       o: bind
       type: none
 
