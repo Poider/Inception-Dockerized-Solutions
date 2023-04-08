@@ -60,7 +60,7 @@ volumes:
   db:
     driver: local
     driver_opts:
-      device: /home/mel-amma/data/wp//db
+      device: /home/mel-amma/data/wp/db
       o: bind
       type: none
 
