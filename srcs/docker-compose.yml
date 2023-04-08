@@ -50,6 +50,19 @@ services:
       - .env
     networks:
       - my_net
+  phpmyadmin:
+      build:
+        context: ./requirements/phpmyadmin
+        dockerfile: Dockerfile
+      image: phpmyadmin
+      container_name: "phpmyadmin_container"
+      restart: always
+      env_file:
+        - .env
+      ports:
+        - "9092:9092"
+      networks:
+        - my_net
 volumes:
   wp:
     driver: local
