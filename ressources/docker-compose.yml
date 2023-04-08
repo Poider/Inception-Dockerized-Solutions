@@ -54,13 +54,13 @@ volumes:
   wp:
     driver: local
     driver_opts:
-      device: /Users/mel-amma/Desktop/dockerr/data/wp
+      device: /home/mel-amma/data/wp/wp
       o: bind
       type: none
   db:
     driver: local
     driver_opts:
-      device: /Users/mel-amma/Desktop/dockerr/data/db
+      device: /home/mel-amma/data/wp//db
       o: bind
       type: none
 
