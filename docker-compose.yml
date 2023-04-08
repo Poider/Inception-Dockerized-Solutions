@@ -1,0 +1,68 @@
+version: '3'
+services:
+  nginx:
+    build: ./nginx/.
+    restart: always
+    image: nginx
+    container_name: "nginx_container"
+    depends_on:
+      - wordpress
+    ports:
+      - "443:443"
+    volumes:
+      - wp:/var/www/wordpress
+    networks:
+      - my_net
+  maria-db:
+    build: ./mariadb/.
+    image: maria-db
+    restart: always
+    container_name: "mariaDB_container"
+    volumes:
+      - db:/var/lib/mysql
+    env_file:
+      - .env
+    networks:
+      - my_net
+  wordpress:
+    build: ./wordpress/.
+    restart: always
+    depends_on:
+      - maria-db
+    volumes:
+      - wp:/var/www/wordpress
+    image: wordpress
+    container_name: "wp_container"
+    env_file:
+      - .env
+    networks:
+      - my_net
+  bonus:
+    build: ./bonus/.
+    restart: always
+    depends_on:
+      - nginx
+    ports:
+      - "9090:9090"
+    image: bonus
+    container_name: "bonus_container"
+    env_file:
+      - .env
+    networks:
+      - my_net
+volumes:
+  wp:
+    driver: local
+    driver_opts:
+      device: /Users/mel-amma/Desktop/dockerr/data/wp
+      o: bind
+      type: none
+  db:
+    driver: local
+    driver_opts:
+      device: /Users/mel-amma/Desktop/dockerr/data/db
+      o: bind
+      type: none
+
+networks:
+  my_net:
