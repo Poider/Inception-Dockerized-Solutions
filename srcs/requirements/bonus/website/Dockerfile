@@ -6,8 +6,8 @@ RUN apt-get update && \
 
 RUN mkdir /var/www/bonus
 
-COPY ./website/* /var/www/bonus/
-COPY ./tools/myconfig.conf /etc/nginx/sites-available/default
+COPY ./website_files/* /var/www/bonus/
+COPY ./conf/myconfig.conf /etc/nginx/sites-available/default
 
 EXPOSE 9090
 

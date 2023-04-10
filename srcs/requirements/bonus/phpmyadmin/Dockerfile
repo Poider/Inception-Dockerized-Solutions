@@ -11,6 +11,6 @@ RUN curl -SL -o /tmp/phpmyadmin.zip https://files.phpmyadmin.net/phpMyAdmin/5.1.
 
 EXPOSE 9092
 
-COPY config.inc.php /usr/share/phpmyadmin/
+COPY /conf/config.inc.php /usr/share/phpmyadmin/
 
 CMD ["php", "-S", "0.0.0.0:9092", "-t", "/usr/share/phpmyadmin"]

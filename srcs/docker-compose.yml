@@ -37,22 +37,22 @@ services:
       - .env
     networks:
       - my_net
-  bonus:
-    build: ./requirements/bonus/.
+  static_website:
+    build: ./requirements/bonus/website/.
     restart: always
     depends_on:
       - nginx
     ports:
       - "9090:9090"
-    image: bonus
-    container_name: "bonus_container"
+    image: static_website
+    container_name: "static_website_container"
     env_file:
       - .env
     networks:
       - my_net
   phpmyadmin:
       build:
-        context: ./requirements/phpmyadmin
+        context: ./requirements/bonus/phpmyadmin/.
         dockerfile: Dockerfile
       image: phpmyadmin
       container_name: "phpmyadmin_container"
@@ -63,6 +63,18 @@ services:
         - "9092:9092"
       networks:
         - my_net
+  adminer:
+    build:
+      context: ./requirements/bonus/adminer/.
+      dockerfile: Dockerfile
+    container_name: adminer
+    depends_on:
+      - maria-db
+    ports:
+      - "9093:9093"
+    networks:
+     - my_net
+    restart: always
 volumes:
   wp:
     driver: local
