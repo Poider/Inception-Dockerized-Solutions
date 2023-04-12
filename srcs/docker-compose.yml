@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
   nginx:
     build: ./requirements/nginx/.
@@ -7,6 +7,7 @@ services:
     container_name: "nginx_container"
     depends_on:
       - wordpress
+    init: true
     ports:
       - "443:443"
     volumes:
@@ -24,10 +25,13 @@ services:
       - .env
     networks:
       - my_net
+    init: true
   wordpress:
+    init: true
     build: ./requirements/wordpress/.
     restart: always
     depends_on:
+      - redis
       - maria-db
     volumes:
       - wp:/var/www/wordpress
@@ -38,10 +42,9 @@ services:
     networks:
       - my_net
   static_website:
+    init: true
     build: ./requirements/bonus/website/.
     restart: always
-    depends_on:
-      - nginx
     ports:
       - "9090:9090"
     image: static_website
@@ -51,30 +54,48 @@ services:
     networks:
       - my_net
   phpmyadmin:
-      build:
-        context: ./requirements/bonus/phpmyadmin/.
-        dockerfile: Dockerfile
-      image: phpmyadmin
-      container_name: "phpmyadmin_container"
-      restart: always
-      env_file:
-        - .env
-      ports:
-        - "9092:9092"
-      networks:
-        - my_net
+    init: true
+    build:
+      context: ./requirements/bonus/phpmyadmin/.
+      dockerfile: Dockerfile
+    image: phpmyadmin
+    container_name: "phpmyadmin_container"
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "9092:9092"
+    networks:
+      - my_net
+  redis:
+    init: true
+    build: ./requirements/bonus/redis/.
+    container_name: redis_container
+    restart: always
+    image: redis
+    env_file:
+      - .env
+    ports:
+      - "6379:6379"
+    networks:
+      - my_net
   adminer:
+    init: true
     build:
       context: ./requirements/bonus/adminer/.
       dockerfile: Dockerfile
-    container_name: adminer
+    container_name: adminer_container
+    image: adminer
     depends_on:
       - maria-db
     ports:
       - "9093:9093"
+    env_file:
+      - .env
     networks:
-     - my_net
+      - my_net
     restart: always
+
 volumes:
   wp:
     driver: local
@@ -88,6 +109,11 @@ volumes:
       device: /home/mel-amma/data/db
       o: bind
       type: none
-
+  redis:
+    driver: local
+    driver_opts:
+      device: /home/mel-amma/data/redis
+      o: bind
+      type: none
 networks:
   my_net:

@@ -6,6 +6,8 @@ RUN apt install -y curl
 RUN apt-get -y install php-mysql 
 RUN apt-get -y install php-fpm
 RUN mkdir -p /run/php/
+RUN apt-get -y install php-redis
+
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
