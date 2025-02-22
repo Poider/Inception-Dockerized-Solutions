@@ -21,6 +21,8 @@ In addition, bonus services are provided to extend functionality:
 - **Redis** for caching.
 - A **Custom Static Website** for additional content delivery.
 
+<img width="632" alt="inception" src="https://github.com/user-attachments/assets/2a86d40a-6a64-4b7c-a311-3627014eea06" />
+
 ---
 
 ## Project Structure
