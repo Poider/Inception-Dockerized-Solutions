@@ -65,7 +65,7 @@ This script sets up the Docker environment by configuring necessary directories 
 ### Starting the Application
 1. **Clone the Repository**
    ```sh
-   git clone https://github.com/mel-amma//Inception-Dockerized-Solutions.git
+   git clone https://github.com/Poider//Inception-Dockerized-Solutions.git
    cd Inception-Dockerized-Solutions/srcs
    ```
 
